@@ -1,8 +1,10 @@
-# This is a copy of the deprecated HA-Addon Vantage Pro to MQTT
+# This is a fork of the deprecated HA-Addon Vantage Pro to MQTT
 
 Originally located at [https://github.com/MarcoGos/ha-addons](https://github.com/MarcoGos/ha-addons) by [Marco Gosselink](https://github.com/MarcoGos).
 
-The deprecated version includes a bug that does not handle negative temperatures which has been fixed in this version. This version will be deleted if Marco approves the pull request to include the fix, but that is uncertain per his deprecation announcement. 
+The deprecated version includes a bug that does not handle negative temperatures which has been fixed in version 2.0+ along with other Quality Control improvements. 
+
+Below is a copy of the original README.
 
 # Home Assistant Add-on: Vantage Pro to MQTT
 

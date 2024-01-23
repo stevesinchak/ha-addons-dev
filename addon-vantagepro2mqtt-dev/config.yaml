@@ -1,8 +1,8 @@
-name: "Vantage Pro to MQTT DEV"
+name: "Vantage Pro to MQTT"
 description: >-
   Vantage Pro Weather to MQTT gateway. Using the pyvantagepro library
 url: https://github.com/stevesinchak/ha-addons
-version: "1.0.15"
+version: "2.0.15"
 slug: vantagepro2mqtt
 arch:
   - aarch64
@@ -14,9 +14,11 @@ apparmor: true
 options:
   address: ""
   interval: 30
-  unit_system: Metric
+  unit_system: Imperial
   new_sensor_used: false
   log_level: notice
+  qc_low_temp: -130
+  qc_high_temp: 140
 schema:
   device: "device(subsystem=tty)?"
   address: "str?"
@@ -26,6 +28,8 @@ schema:
   new_sensor_used: "bool"
   windrose8: "bool?"
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
+  qc_low_temp: "int"
+  qc_high_temp: "int"
   mqtt_host: "str?"
   mqtt_port: "port?"
   mqtt_user: "str?"
