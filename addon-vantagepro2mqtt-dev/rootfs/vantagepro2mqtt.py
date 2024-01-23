@@ -50,10 +50,13 @@ new_sensor_used = False
 windrose8 = False
 availability_topic = f"{discovery_prefix}/sensor/{prefix}/Status/state"
 
+qc_cold_temp = -100
+qc_hot_temp = 200
+
 try:
-    opts, args = getopt.getopt(sys.argv[1:], ":d:a:b:P:u:p:I:s:i:nl:kw",["device=","address=","broker=","port=","user=","password=","prefix=","system=","interval=","new_sensor", "log_level=", "alt_windspeed_uom", "windrose8"])
+    opts, args = getopt.getopt(sys.argv[1:], ":d:a:b:P:u:p:I:s:i:nl:kw:c:h",["device=","address=","broker=","port=","user=","password=","prefix=","system=","interval=","new_sensor", "log_level=", "alt_windspeed_uom", "windrose8", "qc_cold_temp=", "qc_hot_temp="])
 except getopt.GetoptError:
-    print('vantagepro2mqtt.py [-d <device>|-a <address>] -b <broker>[-P <port>][-u <user>][-p <password>][-I <prefix>][-s <system>][-i <interval][-l <loglevel>][-n][-k][-w]')
+    print('vantagepro2mqtt.py [-d <device>|-a <address>] -b <broker>[-P <port>][-u <user>][-p <password>][-I <prefix>][-s <system>][-i <interval][-l <loglevel>][-n][-k][-w][-c <qccoldtemp>][-h <qchottemp>]')
     sys.exit(2)
 for opt, arg in opts:
     logger.debug(f"{opt}={arg}")
@@ -85,6 +88,10 @@ for opt, arg in opts:
         alt_windspeed_uom = True
     elif opt in ("-w", "--windrose8"):
         windrose8 = True
+    elif opt in ("-c"):
+        qc_cold_temp = int(arg)
+    elif opt in ("-h"):
+        qc_hot_temp = int(arg)
 
 metric_system = unit_system == 'Metric'
 
@@ -102,6 +109,8 @@ logger.debug(f"interval = {interval}")
 logger.debug(f"log_level = {log_level}")
 logger.debug(f"new_sensor_used = {new_sensor_used}")
 logger.debug(f"alt_windspeed_uom = {alt_windspeed_uom}")
+logger.debug(f"qc_cold_temp = {qc_cold_temp}")
+logger.debug(f"qc_hot_temp = {qc_hot_temp}")
 
 if not device and not address:
     logger.error("Must define DEVICE or ADDRESS in configuration!")
@@ -257,9 +266,15 @@ while True:
             send_config_to_mqtt(client, data)
             hass_configured = True
 
-        send_data_to_mqtt(client, data)
-        logger.info('Data sent to MQTT')
-        send_last_error_to_mqtt(client, 'No error')
+        #new data quality stuff
+        if 'TempOut' in data:
+            if data['TempOut'] >= qc_cold_temp and data['TempOut'] <= qc_hot_temp:
+                send_data_to_mqtt(client, data)
+                logger.info('Data sent to MQTT')
+                send_last_error_to_mqtt(client, 'No error')
+            else:
+                logger.warning('Outside temp is not in quality control range')
+                send_last_error_to_mqtt(client, 'Outside temp is not in quality control range')
     else:
         send_last_error_to_mqtt(client, 'Couldn''t acquire data')
 
