@@ -54,9 +54,9 @@ qc_cold_temp = -100
 qc_hot_temp = 200
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], ":d:a:b:P:u:p:I:s:i:nl:kw:c:h",["device=","address=","broker=","port=","user=","password=","prefix=","system=","interval=","new_sensor", "log_level=", "alt_windspeed_uom", "windrose8", "qc_cold_temp=", "qc_hot_temp="])
+    opts, args = getopt.getopt(sys.argv[1:], ":d:a:b:P:u:p:I:s:i:nl:kw:c:t",["device=","address=","broker=","port=","user=","password=","prefix=","system=","interval=","new_sensor", "log_level=", "alt_windspeed_uom", "windrose8", "qc_cold_temp=", "qc_hot_temp="])
 except getopt.GetoptError:
-    print('vantagepro2mqtt.py [-d <device>|-a <address>] -b <broker>[-P <port>][-u <user>][-p <password>][-I <prefix>][-s <system>][-i <interval][-l <loglevel>][-n][-k][-w][-c <qccoldtemp>][-h <qchottemp>]')
+    print('vantagepro2mqtt.py [-d <device>|-a <address>] -b <broker>[-P <port>][-u <user>][-p <password>][-I <prefix>][-s <system>][-i <interval][-l <loglevel>][-n][-k][-w][-c <qccoldtemp>][-t <qchottemp>]')
     sys.exit(2)
 for opt, arg in opts:
     logger.debug(f"{opt}={arg}")
@@ -90,7 +90,7 @@ for opt, arg in opts:
         windrose8 = True
     elif opt in ("-c"):
         qc_cold_temp = int(arg)
-    elif opt in ("-h"):
+    elif opt in ("-t"):
         qc_hot_temp = int(arg)
 
 metric_system = unit_system == 'Metric'
