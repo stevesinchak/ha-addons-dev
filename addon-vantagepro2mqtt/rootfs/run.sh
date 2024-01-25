@@ -60,8 +60,8 @@ if [ "$WINDROSE8" = true ]; then
     ARGS+=" -w"
 fi
 
-ARGS+=" -c ${QC_LOW_TEMP}"
-ARGS+=" -t ${QC_HIGH_TEMP}"
+ARGS+=" -c=${QC_LOW_TEMP}"
+ARGS+=" -h=${QC_HIGH_TEMP}"
 
 bashio::log.info "$ARGS"
 
