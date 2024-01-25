@@ -88,9 +88,9 @@ for opt, arg in opts:
         alt_windspeed_uom = True
     elif opt in ("-w", "--windrose8"):
         windrose8 = True
-    elif opt in ("-c"):
+    elif opt in ("-c", "--qc_cold_temp"):
         qc_cold_temp = int(arg)
-    elif opt in ("-t"):
+    elif opt in ("-t", "--qc_hot_temp"):
         qc_hot_temp = int(arg)
 
 metric_system = unit_system == 'Metric'
