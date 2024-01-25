@@ -2,7 +2,7 @@ name: "Vantage Pro to MQTT Steve Dev"
 description: >-
   Vantage Pro Weather to MQTT gateway. Using the pyvantagepro library and forked from 
 url: https://github.com/stevesinchak/ha-addons-dev
-version: "2.0.2"
+version: "2.0.3"
 slug: vantagepro2mqttstevedev
 arch:
   - aarch64
