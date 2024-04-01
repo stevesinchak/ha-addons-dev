@@ -1,5 +1,5 @@
 ---
-version: 99.1
+version: 99.2
 slug: sshp
 name: Terminal & SSH & Python3
 description: Allow logging in remotely to Home Assistant using SSH

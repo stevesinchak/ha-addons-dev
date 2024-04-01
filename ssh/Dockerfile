@@ -19,6 +19,7 @@ RUN \
         pwgen \
         tmux \
         python3 \
+        python3-pip \
         vim \
     \
     && apk add --no-cache --virtual .build-dependencies \
