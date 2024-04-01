@@ -1,5 +1,5 @@
 ---
-version: 9.10.0
+version: 99.1
 slug: sshp
 name: Terminal & SSH & Python3
 description: Allow logging in remotely to Home Assistant using SSH
@@ -16,7 +16,6 @@ audio: true
 hassio_api: true
 hassio_role: manager
 host_dbus: true
-image: homeassistant/{arch}-addon-ssh
 ingress: true
 init: false
 map:
