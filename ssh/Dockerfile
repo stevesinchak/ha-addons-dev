@@ -20,6 +20,9 @@ RUN \
         tmux \
         python3 \
         python3-pip \
+        unzip \
+        jq \
+        curl \
         vim \
     \
     && apk add --no-cache --virtual .build-dependencies \
