@@ -2,7 +2,7 @@ name: "HA Datadog Agent"
 description: >-
   Local datadog agent running in Docker to be used with the native HA Datadog integration (https://www.home-assistant.io/integrations/datadog/)
 url: https://github.com/stevesinchak/ha-addons-dev
-version: "0.0.2"
+version: "0.0.3"
 slug: ha-datadog-agent
 arch:
   - aarch64
@@ -13,6 +13,10 @@ options:
   DD_SITE: us5.datadoghq.com
   DD_HOSTNAME: homeassistant.local
   DD_DOGSTATSD_NON_LOCAL_TRAFFIC: "true"
+schema:
+  DD_API_KEY: "str?"
+  DD_SITE: "str?"
+  DD_HOSTNAME: "str?"
 ports:
   5000/tcp: 5000
   5001/tcp: 5001
