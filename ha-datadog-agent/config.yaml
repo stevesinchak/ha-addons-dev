@@ -2,7 +2,7 @@ name: "HA Datadog Agent"
 description: >-
   Local datadog agent running in Docker to be used with the native HA Datadog integration (https://www.home-assistant.io/integrations/datadog/)
 url: https://github.com/stevesinchak/ha-addons-dev
-version: "0.0.3"
+version: "0.0.4"
 slug: ha-datadog-agent
 arch:
   - aarch64
