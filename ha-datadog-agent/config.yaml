@@ -8,11 +8,16 @@ arch:
   - aarch64
   - amd64
 legacy: true
+journald: true
 options:
   DD_API_KEY: <insert your key>
   DD_SITE: us5.datadoghq.com
   DD_HOSTNAME: homeassistant.local
   DD_DOGSTATSD_NON_LOCAL_TRAFFIC: "true"
+  DD_PROCESS_CONFIG_PROCESS_COLLECTION_ENABLED: "true"
+  DD_SYSTEM_PROBE_NETWORK_ENABLED: "true"
+  DD_LOGS_ENABLED: "true"
+  DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL: "true"
 schema:
   DD_API_KEY: "str?"
   DD_SITE: "str?"
