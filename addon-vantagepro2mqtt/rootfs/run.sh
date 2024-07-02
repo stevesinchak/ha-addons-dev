@@ -34,6 +34,8 @@ WINDROSE8=$(bashio::config "windrose8")
 
 QC_LOW_TEMP=$(bashio::config "qc_low_temp")
 QC_HIGH_TEMP=$(bashio::config "qc_high_temp")
+QC_LOW_WIND=$(bashio::config "qc_low_wind")
+QC_HIGH_WIND=$(bashio::config "qc_high_wind")
 
 ARGS=""
 if [ "${DEVICE}" != "" ]; then
@@ -62,6 +64,8 @@ fi
 
 ARGS+=" -c ${QC_LOW_TEMP}"
 ARGS+=" -h ${QC_HIGH_TEMP}"
+ARGS+=" -WL ${QC_LOW_WIND}"
+ARGS+=" -WH ${QC_HIGH_WIND}"
 
 bashio::log.info "$ARGS"
 

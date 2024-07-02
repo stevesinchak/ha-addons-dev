@@ -1,4 +1,4 @@
-name: "Vantage Pro to MQTT Steve Dev"
+name: "Vantage Pro to MQTT Maintained by Steve Dev"
 description: >-
   Vantage Pro Weather to MQTT gateway. Using the pyvantagepro library and forked from 
 url: https://github.com/stevesinchak/ha-addons-dev
@@ -19,6 +19,8 @@ options:
   log_level: notice
   qc_low_temp: -130
   qc_high_temp: 140
+  qc_low_wind: -1
+  qc_high_wind: 150
 schema:
   device: "device(subsystem=tty)?"
   address: "str?"
@@ -30,6 +32,8 @@ schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   qc_low_temp: "int"
   qc_high_temp: "int"
+  qc_low_wind: "int"
+  qc_high_wind: "int"
   mqtt_host: "str?"
   mqtt_port: "port?"
   mqtt_user: "str?"

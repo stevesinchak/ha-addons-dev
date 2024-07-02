@@ -1,10 +1,17 @@
-# This is a fork of the deprecated HA-Addon Vantage Pro to MQTT
+# This is a fork based on the deprecated Vantage Pro to MQTT Home Assistant Addon
 
-Originally located at [https://github.com/MarcoGos/ha-addons](https://github.com/MarcoGos/ha-addons) by [Marco Gosselink](https://github.com/MarcoGos).
+Before being deprecated, version 1.0.15 was originally located at [https://github.com/MarcoGos/ha-addons/tree/master/addon-vantagepro2mqtt](https://github.com/MarcoGos/ha-addons/tree/master/addon-vantagepro2mqtt) by [Marco Gosselink](https://github.com/MarcoGos).  The developer moved their focus to a different implementation no longer leveraging MQTT.  
 
-The deprecated version includes a bug that does not handle negative temperatures which has been fixed in version 2.0+ along with other Quality Control improvements. 
+For those interested in a MQTT-based solution, this fork, which is tracked as version 2, is actively maintained with various bug fixes and enhancements. 
 
-Below is a copy of the original README.
+## Enhancements in Version 2
+
+- Fix: Negative temperatures are now handled correctly fixing an unsigned integer bug in the pyvantage library.
+- New: User-configurable temperature and wind speed quality control settings. Ignore measurements outside of the allowed range to prevent reporting bad data. For example, temperature readings above 150 degrees F typically would indicate a measurement error and should not be reported. 
+
+# Reference copy of Version 1 README
+
+[https://github.com/MarcoGos/ha-addons/blob/master/addon-vantagepro2mqtt/README.md](https://github.com/MarcoGos/ha-addons/blob/master/addon-vantagepro2mqtt/README.md)
 
 # Home Assistant Add-on: Vantage Pro to MQTT
 
@@ -24,33 +31,3 @@ Acquiring data from a Davis Vantage weather station using the pyvantagepro softw
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-
-# MarcoGos's _HASS.IO_ Repository
-
-## About
-
-This is the MarcoGos's _HASS.IO_ add-ons repository.
-
-## Installation
-
-The add-on is installed like any other:
-
-1. Navigate in your Home Assistant frontend to **Supervisor** -> **Add-on Store**.
-2. Click 3-dots menu at upper right > **Repositories** and add this repository URL: [https://github.com/MarcoGos/ha-addons](https://github.com/MarcoGos/ha-addons)
-3. Scroll down the page to find the new repository "Add-ons from MarcoGos", and click one of the new add-ons.
-4. Click <kbd>Install</kbd> and give it a few minutes to finish downloading.
-5. Configure at **Configuration** tab or separate file in [**Configuration folder**](https://www.home-assistant.io/getting-started/configuration/) according to the instructions of the selected add-on:
-
-- [GFS Weather Forecast](./addon-gfs_weather_forecast/)
-
-- [Vantage Pro to MQTT](./addon-vantagepro2mqtt) (DEPRECATED, use the Davis Vantage integration: https://github.com/MarcoGos/davis_vantage)
-- [GFS Forecast](./addon-gfsforecast) (DEPRECATED, use the GFS Weather Forecast addon)
-
-6. Click <kbd>Start</kbd>, give it a few seconds to spin up.
-7. Enjoy.
-
-For troubleshooting use **Log** tab
-
-## Support
-
-Please open an issue here on Github.

@@ -52,11 +52,13 @@ availability_topic = f"{discovery_prefix}/sensor/{prefix}/Status/state"
 
 qc_cold_temp = -100
 qc_hot_temp = 200
+qc_low_wind = -1
+qc_high_wind = 150
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], ":d:a:b:P:u:p:I:s:i:nl:kw:c:h:",["device=","address=","broker=","port=","user=","password=","prefix=","system=","interval=","new_sensor", "log_level=", "alt_windspeed_uom", "windrose8", "qc_cold_temp=", "qc_hot_temp="])
+    opts, args = getopt.getopt(sys.argv[1:], ":d:a:b:P:u:p:I:s:i:nl:kw:c:h:WL:WH:",["device=","address=","broker=","port=","user=","password=","prefix=","system=","interval=","new_sensor", "log_level=", "alt_windspeed_uom", "windrose8", "qc_cold_temp=", "qc_hot_temp=", "qc_low_wind=", "qc_high_wind="])
 except getopt.GetoptError:
-    print('vantagepro2mqtt.py [-d <device>|-a <address>] -b <broker>[-P <port>][-u <user>][-p <password>][-I <prefix>][-s <system>][-i <interval][-l <loglevel>][-n][-k][-w][-c <qccoldtemp>][-h <qchottemp>]')
+    print('vantagepro2mqtt.py [-d <device>|-a <address>] -b <broker>[-P <port>][-u <user>][-p <password>][-I <prefix>][-s <system>][-i <interval>][-l <loglevel>][-n][-k][-w][-c <qc cold temp>][-h <qc hot temp>][-WL <qc low wind>][-WH <qc high wind>]')
     sys.exit(2)
 for opt, arg in opts:
     logger.debug(f"{opt}={arg}")
@@ -92,6 +94,10 @@ for opt, arg in opts:
         qc_cold_temp = int(arg)
     elif opt in ("-h", "--qc_hot_temp"):
         qc_hot_temp = int(arg)
+    elif opt in ("-WL", "--qc_low_wind"):
+        qc_low_wind = int(arg)
+    elif opt in ("-WH", "--qc_high_wind"):
+        qc_high_wind = int(arg)
 
 metric_system = unit_system == 'Metric'
 
@@ -111,6 +117,8 @@ logger.debug(f"new_sensor_used = {new_sensor_used}")
 logger.debug(f"alt_windspeed_uom = {alt_windspeed_uom}")
 logger.debug(f"qc_cold_temp = {qc_cold_temp}")
 logger.debug(f"qc_hot_temp = {qc_hot_temp}")
+logger.debug(f"qc_low_wind = {qc_low_wind}")
+logger.debug(f"qc_high_wind = {qc_high_wind}")
 
 if not device and not address:
     logger.error("Must define DEVICE or ADDRESS in configuration!")
@@ -269,6 +277,15 @@ while True:
         #new data quality stuff
         if 'TempOut' in data:
             if data['TempOut'] >= qc_cold_temp and data['TempOut'] <= qc_hot_temp:
+                send_data_to_mqtt(client, data)
+                logger.info('Data sent to MQTT')
+                send_last_error_to_mqtt(client, 'No error')
+            else:
+                logger.warning('Outside temp is not in quality control range')
+                send_last_error_to_mqtt(client, 'Outside temp is not in quality control range')
+
+        if 'WindSpeed' in data:
+            if data['WindSpeed'] >= qc_cold_temp and data['WindSpeed'] <= qc_hot_temp:
                 send_data_to_mqtt(client, data)
                 logger.info('Data sent to MQTT')
                 send_last_error_to_mqtt(client, 'No error')
